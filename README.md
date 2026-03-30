@@ -33,7 +33,7 @@ A single-player Sudoku web app built with React for CS5610. Play on two difficul
 ### Bonus Features
 - **Local Storage (3 pts)**: Game state is persisted to `localStorage` after every action. On page reload, the game resumes where you left off. Storage is cleared on game completion or board reset. All game `localStorage` access goes through the `GameContext` only.
 - **Backtracking Algorithm (4 pts)**: Puzzles are generated using a recursive backtracking algorithm that first fills a complete valid board, then removes cells one at a time while verifying that the puzzle remains uniquely solvable. See `src/utils/generatePuzzle.js`.
-- **Hint System (5 pts)**: Pressing the "Hint" button highlights a cell where only one valid number is possible (a "naked single"). The user must still determine the correct number themselves. If no naked singles exist, a "No hints available" message is displayed. See the `REQUEST_HINT` action in `src/context/GameContext.jsx`.
+- **Hint System (5 pts)**: Pressing the "Hint" button highlights a cell where only one valid number is possible . The user must still determine the correct number themselves. If no naked singles exist, a "No hints available" message is displayed. See the `REQUEST_HINT` action in `src/context/GameContext.jsx`.
 
 
 

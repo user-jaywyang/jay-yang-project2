@@ -26,7 +26,7 @@ function GameControls({ difficulty }) {
         )}
       </div>
       {noHints && (
-        <p className="no-hints-msg">No hints available — try solving manually!</p>
+        <p className="no-hints-msg">No hints available, try solving manually!</p>
       )}
       {!isComplete && (
         <p className="hint-info">Hint highlights a cell where only one number is possible.</p>

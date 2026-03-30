@@ -1,7 +1,7 @@
 import { useGameDispatch, Actions } from '../context/GameContext';
 
 /**
- * Cell component — renders a single Sudoku cell.
+ * Cell component, renders a single Sudoku cell.
  * Receives all display data as props from Board (parent).
  * Dispatches actions to Context (child-to-parent via state management).
  */

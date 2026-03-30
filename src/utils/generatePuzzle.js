@@ -15,7 +15,7 @@ function getSubgridDims(size) {
   return { rows: 3, cols: 3 };
 }
 
-// Check if placing `num` at (row, col) is valid
+// Check if placing num at (row, col) is valid
 function isValid(board, row, col, num, size) {
   // Check row
   for (let c = 0; c < size; c++) {
@@ -37,7 +37,7 @@ function isValid(board, row, col, num, size) {
   return true;
 }
 
-// Shuffle an array in place (Fisher-Yates)
+// Shuffle an array in place 
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -66,7 +66,7 @@ function fillBoard(board, size) {
   return true; // board is full
 }
 
-// Count solutions (stop at 2 — we only need to know if it's unique)
+// Count solutions (stop at 2, we only need to know if it's unique)
 function countSolutions(board, size, limit = 2) {
   let count = 0;
 
@@ -82,7 +82,7 @@ function countSolutions(board, size, limit = 2) {
               if (count >= limit) return;
             }
           }
-          return; // no valid number — dead end
+          return; // no valid number, dead end
         }
       }
     }
@@ -113,7 +113,7 @@ function removeClues(board, size, targetFilled) {
 
     const testBoard = copyBoard(board);
     if (countSolutions(testBoard, size) !== 1) {
-      board[r][c] = backup; // put it back — removal breaks uniqueness
+      board[r][c] = backup; // put it back, removal breaks uniqueness
     } else {
       filled--;
     }

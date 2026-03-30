@@ -1,6 +1,6 @@
 /**
  * Validation: checks the board for rule violations.
- * Returns a Set of "row-col" strings for cells that violate rules.
+ * Returns a Set of row-col strings for cells that violate rules.
  */
 
 import { getSubgridDims } from './generatePuzzle';

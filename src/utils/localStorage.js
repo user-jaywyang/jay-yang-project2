@@ -1,5 +1,5 @@
 /**
- * localStorage wrapper for game state persistence.
+ * LocalStorage wrapper for game state persistence.
  * All localStorage access is centralized here and called
  * only from GameContext.
  */

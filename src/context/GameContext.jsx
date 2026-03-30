@@ -230,11 +230,10 @@ export function GameProvider({ children }) {
   );
 }
 
-// ===== Custom Hooks =====
+// ===== Hooks =====
 export function useGame() {
   const ctx = useContext(GameContext);
   if (!ctx && ctx !== initialState) {
-    // Allow usage outside provider for non-game pages
     return initialState;
   }
   return ctx;

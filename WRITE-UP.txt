@@ -18,7 +18,7 @@ Additional Features
 
     Given more time, I would love to add themed board skins that completely change the visual experience of each game.
 For example, an animal theme could replace the standard numbers with illustrated animal icons, with a jungle-patterned
-board and ambient forest sound effects when placing pieces. A car theme could use racing-inspired graphics with engine
+board and ambient forest sound effects when placing pieces. A car theme could use racing inspired graphics with engine
 rev sounds on correct placements and a checkered flag animation on completion. Each theme would have unique number
 styles, board textures, and a set of sound effects tied to game events like selecting a cell, placing a number, making
 an error, and completing the puzzle.
@@ -72,7 +72,7 @@ the prompt.
 
 Backtracking (4 pts)
 
-    The puzzle generator in src/utils/generatePuzzle.js uses a two-phase backtracking approach. In Phase 1, the fillBoard
+    The puzzle generator in src/utils/generatePuzzle.js uses a two phase backtracking approach. In Phase 1, the fillBoard
 function recursively fills an empty grid cell by cell, trying shuffled numbers 1 through N at each position. If a number
 violates row, column, or subgrid constraints (checked by the isValid function), it backtracks and tries the next candidate.
 This produces a complete, valid solved board.
@@ -91,7 +91,7 @@ Hint button (rendered by src/components/GameControls.jsx), the reducer scans eve
 many numbers from 1 through N are valid placements using the isValid function. If a cell has exactly one valid number it 
 becomes a hint candidate. One candidate is chosen at random and its coordinates are stored in state.hintCell.
 
-    The Cell component in src/components/Cell.jsx checks if it matches the hint coordinates and applies a green pulsing
+    The Cell component in src/components/Cell.jsx checks if it matches the hint coordinates and applies a green 
 highlight via the cell-hint CSS class, defined in src/css/board.css. The hint only highlights the cell; the user
 must still determine the correct number on their own. If no naked singles exist on the board, the state sets noHints to
 true and the UI displays "No hints available, try solving manually!" below the game controls. The hint clears whenever

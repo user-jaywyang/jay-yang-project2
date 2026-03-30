@@ -3,7 +3,7 @@ import Cell from './Cell';
 import '../css/board.css';
 
 /**
- * Board component — renders the full Sudoku grid.
+ * Board component, renders the full Sudoku grid.
  * Reads state from Context, passes data as props to Cell children.
  */
 function Board() {
