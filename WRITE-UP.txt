@@ -1,0 +1,98 @@
+Sudoku — Project 2 Writeup
+
+
+Challenges
+
+    The three hardest functions to code were the backtracking puzzle generator, the validation system, and the hint finder.
+The backtracking generator in src/utils/generatePuzzle.js required building a complete solved board recursively, then
+removing cells one at a time while running a solution counter to confirm the puzzle remained uniquely solvable. Getting the 
+countSolutions function to stop early at 2 rather than exhaustively counting every possible solution was very difficult.
+Without that, generating a 9x9 board took an unreasonable amount of time. The validation system in src/utils/validation.js 
+was tricky because errors need to flag both the duplicate cell and the original cell it conflicts with, across rows, columns,
+and grids simultaneously. The hint system's detection had to scan every empty cell and check all possible values against 
+the constraints.
+
+   
+
+Additional Features
+
+    Given more time, I would love to add themed board skins that completely change the visual experience of each game.
+For example, an animal theme could replace the standard numbers with illustrated animal icons, with a jungle-patterned
+board and ambient forest sound effects when placing pieces. A car theme could use racing-inspired graphics with engine
+rev sounds on correct placements and a checkered flag animation on completion. Each theme would have unique number
+styles, board textures, and a set of sound effects tied to game events like selecting a cell, placing a number, making
+an error, and completing the puzzle.
+
+    Beyond visual themes, I would also like to implement an in-game radio or music player where players could listen to a 
+playlist while solving puzzles. It would sit in the corner of the screen as a small widget and add a lot to the overall 
+atmosphere of the game.
+
+
+Assumptions
+
+    Going into this project, I assumed that working with React would be significantly more difficult than plain HTML and CSS
+since it is not just static files you can open in a browser. Setting up the development environment, understanding how
+components render, and managing state through Context andreducers all felt like very familiar and easy.
+
+    I also assumed that implementing the backtracking algorithm for puzzle generation would be the single hardest part of the
+entire project and a major time sink. In practice, the algorithm itself was eventually straightforward once the
+recursive structure clicked, but the real difficulty was in the surrounding structure — making sure the generator
+produced valid boards quickly, that uniqueness checking did not tank performance, and that the generated state integrated
+cleanly with the Context reducer.
+
+    I also assumed that deploying to Render would involve a more complicated configuration process, but it turned out to be
+relatively painless once the GitHub repo was set up correctly.
+
+
+Time Spent
+
+    This project took approximately 25 to 30 hours to complete across about two weeks. The bulk of the time was split between
+building out the core game logic, debugging environment and setup issues, and polishing the styling to match the Windows
+95 aesthetic.
+
+
+Bonus Points
+
+    I attempted three bonus point categories.
+
+Local Storage (3 pts)
+
+    Game state is persists to localStorage after every meaningful action, including cell placement, cell deletion,
+and timer ticks. When the app first loads, GameContext.jsx checks for saved data and hydrates the state if a game is
+found. This is handled by the LOAD_FROM_STORAGE action in src/context/GameContext.jsx. After every state change, a
+useEffect hook in the GameProvider component either saves the current state or clears storage, depending on whether
+the game is complete or has just been reset.
+
+    The localStorage wrapper functions (saveGame, loadGame, clearGame) live in src/utils/localStorage.js, but they are
+only ever called from within GameContext.jsx. No other file accesses game localStorage directly. Theme persistence uses
+a separate key (sudonku_theme) and is handled through its own ThemeContext in src/context/ThemeContext.jsx, keeping the
+two concerns separated. Storage is cleared both on puzzle completion and on pressing the Reset button, as specified in
+the prompt.
+
+
+Backtracking (4 pts)
+
+    The puzzle generator in src/utils/generatePuzzle.js uses a two-phase backtracking approach. In Phase 1, the fillBoard
+function recursively fills an empty grid cell by cell, trying shuffled numbers 1 through N at each position. If a number
+violates row, column, or subgrid constraints (checked by the isValid function), it backtracks and tries the next candidate.
+This produces a complete, valid solved board.
+
+    In Phase 2, the removeClues function iterates through cells in random order and attempts to remove each one. After
+each removal, it calls countSolutions which counts how many valid completions exist for the current board, stopping early 
+once it finds 2. If removing a cell would create multiple solutions, the cell is restored. This guarantees every generated 
+puzzle has exactly one valid solution. The countSolutions function accepts a limit parameter defaulting to 2 so it does not 
+waste time counting beyond what is needed for the uniqueness check.
+
+
+Hint System (5 pts)
+
+    The hint system is implemented in the REQUEST_HINT action inside src/context/GameContext.jsx. When the user presses the
+Hint button (rendered by src/components/GameControls.jsx), the reducer scans every empty cell on the board and checks how
+many numbers from 1 through N are valid placements using the isValid function. If a cell has exactly one valid number it 
+becomes a hint candidate. One candidate is chosen at random and its coordinates are stored in state.hintCell.
+
+    The Cell component in src/components/Cell.jsx checks if it matches the hint coordinates and applies a green pulsing
+highlight via the cell-hint CSS class, defined in src/css/board.css. The hint only highlights the cell; the user
+must still determine the correct number on their own. If no naked singles exist on the board, the state sets noHints to
+true and the UI displays "No hints available, try solving manually!" below the game controls. The hint clears whenever
+the user interacts with the board by placing or deleting a number, or selecting a new cell.

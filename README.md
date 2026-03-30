@@ -4,7 +4,7 @@ A single-player Sudoku web app built with React for CS5610. Play on two difficul
 
 ## Live Demo
 
-🔗 [Render Deployment]()
+🔗 [Render Deployment](https://jay-yang-project2.onrender.com/)
 
 ## Features
 
