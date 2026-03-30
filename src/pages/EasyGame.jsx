@@ -13,7 +13,7 @@ function EasyGame() {
     if (board.length === 0 || difficulty !== 'easy') {
       dispatch({ type: Actions.NEW_GAME, payload: { difficulty: 'easy' } });
     }
-  }, []);
+  }, [board.length, difficulty, dispatch]);
 
   return (
     <div className="window-frame">

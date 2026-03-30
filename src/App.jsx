@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GameProvider } from './context/GameContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -16,20 +17,22 @@ import './css/board.css';
 function App() {
   return (
     <BrowserRouter>
-      <GameProvider>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/games" element={<Selection />} />
-          <Route path="/games/normal" element={<NormalGame />} />
-          <Route path="/games/easy" element={<EasyGame />} />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="/scores" element={<Scores />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-        <Footer />
-      </GameProvider>
+      <ThemeProvider>
+        <GameProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/games" element={<Selection />} />
+            <Route path="/games/normal" element={<NormalGame />} />
+            <Route path="/games/easy" element={<EasyGame />} />
+            <Route path="/rules" element={<Rules />} />
+            <Route path="/scores" element={<Scores />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+          <Footer />
+        </GameProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

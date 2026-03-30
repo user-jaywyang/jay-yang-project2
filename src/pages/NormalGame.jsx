@@ -9,12 +9,11 @@ function NormalGame() {
   const { board, difficulty } = useGame();
   const dispatch = useGameDispatch();
 
-  // Auto-generate a new game if none exists or difficulty changed
   useEffect(() => {
     if (board.length === 0 || difficulty !== 'normal') {
       dispatch({ type: Actions.NEW_GAME, payload: { difficulty: 'normal' } });
     }
-  }, []);
+  }, [board.length, difficulty, dispatch]);
 
   return (
     <div className="window-frame">

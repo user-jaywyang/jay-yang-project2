@@ -202,6 +202,14 @@
   font-weight: bold;
 }
 
+.hint-info {
+  text-align: center;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: #555;
+  font-style: italic;
+}
+
 .btn-hint {
   color: #006600;
   font-weight: bold;
@@ -291,6 +299,10 @@ body.dark-mode .timer-label {
 
 body.dark-mode .no-hints-msg {
   color: #FFA500;
+}
+
+body.dark-mode .hint-info {
+  color: #b8b8b8;
 }
 
 @media (max-width: 768px) {

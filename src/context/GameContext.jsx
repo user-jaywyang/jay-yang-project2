@@ -17,6 +17,7 @@ const initialState = {
   errors: new Set(),
   hintCell: null,
   noHints: false,
+  justReset: false,
 };
 
 // ===== Action Types =====
@@ -61,6 +62,8 @@ function gameReducer(state, action) {
         isComplete: false,
         errors: new Set(),
         hintCell: null,
+        noHints: false,
+        justReset: true,
       };
     }
 
@@ -85,6 +88,7 @@ function gameReducer(state, action) {
         timerRunning: !complete,
         hintCell: null,
         noHints: false,
+        justReset: false,
       };
     }
 
@@ -137,7 +141,7 @@ function gameReducer(state, action) {
             }
           }
           if (validNums.length === 1) {
-            candidates.push({ row: r, col: c, value: validNums[0] });
+            candidates.push({ row: r, col: c });
           }
         }
       }
@@ -148,18 +152,8 @@ function gameReducer(state, action) {
 
       const hint = candidates[Math.floor(Math.random() * candidates.length)];
 
-      // Auto-fill the hinted cell
-      const board = copyBoard(state.board);
-      board[hint.row][hint.col] = hint.value;
-      const errors = findErrors(board, state.size);
-      const complete = isBoardComplete(board, state.size);
-
       return {
         ...state,
-        board,
-        errors,
-        isComplete: complete,
-        timerRunning: !complete,
         hintCell: { row: hint.row, col: hint.col },
         noHints: false,
       };
@@ -211,7 +205,7 @@ export function GameProvider({ children }) {
   // Save to localStorage after every state change (if game is active)
   useEffect(() => {
     if (state.board.length === 0) return;
-    if (state.isComplete) {
+    if (state.isComplete || state.justReset) {
       clearGame();
     } else {
       saveGame(state);

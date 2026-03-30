@@ -1,24 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 function Navbar() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.body.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.body.classList.remove('dark-mode');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
-
-  const toggleTheme = () => {
-    setDarkMode(prev => !prev);
-  };
+  const { darkMode, toggleTheme } = useTheme();
 
   return (
     <nav className="navbar">
